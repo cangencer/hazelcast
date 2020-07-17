@@ -420,6 +420,7 @@ import com.hazelcast.client.impl.protocol.task.CreateProxyMessageTask;
 import com.hazelcast.client.impl.protocol.task.DeployClassesMessageTask;
 import com.hazelcast.client.impl.protocol.task.DestroyProxyMessageTask;
 import com.hazelcast.client.impl.protocol.task.GetDistributedObjectsMessageTask;
+import com.hazelcast.client.impl.protocol.task.MessageTask;
 import com.hazelcast.client.impl.protocol.task.PingMessageTask;
 import com.hazelcast.client.impl.protocol.task.RemoveDistributedObjectListenerMessageTask;
 import com.hazelcast.client.impl.protocol.task.RemovePartitionLostListenerMessageTask;
@@ -490,6 +491,19 @@ import com.hazelcast.client.impl.protocol.task.executorservice.durable.DurableEx
 import com.hazelcast.client.impl.protocol.task.executorservice.durable.DurableExecutorRetrieveResultMessageTask;
 import com.hazelcast.client.impl.protocol.task.executorservice.durable.DurableExecutorShutdownMessageTask;
 import com.hazelcast.client.impl.protocol.task.executorservice.durable.DurableExecutorSubmitToPartitionMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetExistsDistributedObjectMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetExportSnapshotMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetGetJobConfigMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetGetJobIdsByNameMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetGetJobIdsMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetGetJobMetricsMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetGetJobStatusMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetGetJobSubmissionTimeMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetGetJobSummaryListMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetJoinSubmittedJobMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetResumeJobMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetSubmitJobMessageTask;
+import com.hazelcast.client.impl.protocol.task.jet.JetTerminateJobMessageTask;
 import com.hazelcast.client.impl.protocol.task.list.ListAddAllMessageTask;
 import com.hazelcast.client.impl.protocol.task.list.ListAddAllWithIndexMessageTask;
 import com.hazelcast.client.impl.protocol.task.list.ListAddListenerMessageTask;
@@ -819,7 +833,21 @@ import com.hazelcast.internal.longregister.client.task.LongRegisterGetAndSetMess
 import com.hazelcast.internal.longregister.client.task.LongRegisterGetMessageTask;
 import com.hazelcast.internal.longregister.client.task.LongRegisterIncrementAndGetMessageTask;
 import com.hazelcast.internal.longregister.client.task.LongRegisterSetMessageTask;
+import com.hazelcast.internal.nio.Connection;
 import com.hazelcast.internal.util.collection.Int2ObjectHashMap;
+import com.hazelcast.client.impl.protocol.codec.JetExistsDistributedObjectCodec;
+import com.hazelcast.client.impl.protocol.codec.JetExportSnapshotCodec;
+import com.hazelcast.client.impl.protocol.codec.JetGetJobConfigCodec;
+import com.hazelcast.client.impl.protocol.codec.JetGetJobIdsByNameCodec;
+import com.hazelcast.client.impl.protocol.codec.JetGetJobIdsCodec;
+import com.hazelcast.client.impl.protocol.codec.JetGetJobMetricsCodec;
+import com.hazelcast.client.impl.protocol.codec.JetGetJobStatusCodec;
+import com.hazelcast.client.impl.protocol.codec.JetGetJobSubmissionTimeCodec;
+import com.hazelcast.client.impl.protocol.codec.JetGetJobSummaryListCodec;
+import com.hazelcast.client.impl.protocol.codec.JetJoinSubmittedJobCodec;
+import com.hazelcast.client.impl.protocol.codec.JetResumeJobCodec;
+import com.hazelcast.client.impl.protocol.codec.JetSubmitJobCodec;
+import com.hazelcast.client.impl.protocol.codec.JetTerminateJobCodec;
 import com.hazelcast.spi.impl.NodeEngine;
 import com.hazelcast.spi.impl.NodeEngineImpl;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -1781,9 +1809,35 @@ public class DefaultMessageTaskFactoryProvider implements MessageTaskFactoryProv
                 (cm, con) -> new HotRestartInterruptBackupMessageTask(cm, node, con));
     }
 
+    private void initializeJetMessageTaskFactories() {
+        factories.put(JetSubmitJobCodec.REQUEST_MESSAGE_TYPE, toFactory(JetSubmitJobMessageTask::new));
+        factories.put(JetTerminateJobCodec.REQUEST_MESSAGE_TYPE, toFactory(JetTerminateJobMessageTask::new));
+        factories.put(JetGetJobStatusCodec.REQUEST_MESSAGE_TYPE, toFactory(JetGetJobStatusMessageTask::new));
+        factories.put(JetGetJobMetricsCodec.REQUEST_MESSAGE_TYPE, toFactory(JetGetJobMetricsMessageTask::new));
+        factories.put(JetGetJobIdsCodec.REQUEST_MESSAGE_TYPE, toFactory(JetGetJobIdsMessageTask::new));
+        factories.put(JetJoinSubmittedJobCodec.REQUEST_MESSAGE_TYPE, toFactory(JetJoinSubmittedJobMessageTask::new));
+        factories.put(JetGetJobIdsByNameCodec.REQUEST_MESSAGE_TYPE, toFactory(JetGetJobIdsByNameMessageTask::new));
+        factories.put(JetGetJobSubmissionTimeCodec.REQUEST_MESSAGE_TYPE,
+                toFactory(JetGetJobSubmissionTimeMessageTask::new));
+        factories.put(JetGetJobConfigCodec.REQUEST_MESSAGE_TYPE, toFactory(JetGetJobConfigMessageTask::new));
+        factories.put(JetResumeJobCodec.REQUEST_MESSAGE_TYPE, toFactory(JetResumeJobMessageTask::new));
+        factories.put(JetExportSnapshotCodec.REQUEST_MESSAGE_TYPE, toFactory(JetExportSnapshotMessageTask::new));
+        factories.put(JetGetJobSummaryListCodec.REQUEST_MESSAGE_TYPE, toFactory(JetGetJobSummaryListMessageTask::new));
+        factories.put(JetExistsDistributedObjectCodec.REQUEST_MESSAGE_TYPE,
+                toFactory(JetExistsDistributedObjectMessageTask::new));
+    }
+
+    private MessageTaskFactory toFactory(MessageTaskConstructor constructor) {
+        return ((clientMessage, connection) -> constructor.construct(clientMessage, node, connection));
+    }
+
     @SuppressFBWarnings({"MS_EXPOSE_REP", "EI_EXPOSE_REP"})
     @Override
     public Int2ObjectHashMap<MessageTaskFactory> getFactories() {
         return factories;
+    }
+
+    private interface MessageTaskConstructor {
+        MessageTask construct(ClientMessage message, Node node, Connection connection);
     }
 }

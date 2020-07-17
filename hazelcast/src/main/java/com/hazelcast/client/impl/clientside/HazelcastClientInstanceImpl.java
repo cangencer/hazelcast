@@ -98,6 +98,7 @@ import com.hazelcast.internal.nio.Disposable;
 import com.hazelcast.internal.serialization.InternalSerializationService;
 import com.hazelcast.internal.util.ConcurrencyDetection;
 import com.hazelcast.internal.util.ServiceLoader;
+import com.hazelcast.jet.JetInstance;
 import com.hazelcast.logging.ILogger;
 import com.hazelcast.logging.LoggingService;
 import com.hazelcast.map.IMap;
@@ -807,6 +808,12 @@ public class HazelcastClientInstanceImpl implements HazelcastInstance, Serializa
     @Override
     public SqlService getSql() {
         throw new UnsupportedOperationException("SQL is not supported on client members yet.");
+    }
+
+    @Nonnull
+    @Override
+    public JetInstance getJet() {
+        return null;
     }
 
     public void onClusterChange() {

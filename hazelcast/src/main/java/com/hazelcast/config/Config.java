@@ -44,6 +44,7 @@ import com.hazelcast.internal.config.TopicConfigReadOnly;
 import com.hazelcast.internal.config.XmlConfigLocator;
 import com.hazelcast.internal.config.YamlConfigLocator;
 import com.hazelcast.internal.util.Preconditions;
+import com.hazelcast.jet.config.JetConfig;
 import com.hazelcast.map.IMap;
 import com.hazelcast.multimap.MultiMap;
 import com.hazelcast.partition.strategy.StringPartitioningStrategy;
@@ -104,6 +105,7 @@ public class Config {
     private NetworkConfig networkConfig = new NetworkConfig();
 
     private ConfigPatternMatcher configPatternMatcher = new MatchingPointConfigPatternMatcher();
+
 
     private final Map<String, MapConfig> mapConfigs = new ConcurrentHashMap<>();
 
@@ -177,6 +179,8 @@ public class Config {
     private CPSubsystemConfig cpSubsystemConfig = new CPSubsystemConfig();
 
     private SqlConfig sqlConfig = new SqlConfig();
+
+    private JetConfig jetConfig = new JetConfig();
 
     private MetricsConfig metricsConfig = new MetricsConfig();
 
@@ -2650,6 +2654,21 @@ public class Config {
     }
 
     /**
+     * Sets SQL config.
+     */
+    @Nonnull
+    public Config setJetConfig(@Nonnull JetConfig jetConfig) {
+        Preconditions.checkNotNull(jetConfig, "jetConfig");
+        this.jetConfig = jetConfig;
+        return this;
+    }
+
+    @Nonnull
+    public JetConfig getJetConfig() {
+        return jetConfig;
+    }
+
+    /**
      * Returns the configuration for the user services managed by this
      * hazelcast instance.
      *
@@ -2705,6 +2724,7 @@ public class Config {
                 + ", crdtReplicationConfig=" + crdtReplicationConfig
                 + ", liteMember=" + liteMember
                 + ", cpSubsystemConfig=" + cpSubsystemConfig
+                + ", jetConfig=" + jetConfig
                 + ", sqlConfig=" + sqlConfig
                 + ", metricsConfig=" + metricsConfig
                 + '}';
