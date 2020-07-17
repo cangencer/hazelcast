@@ -25,7 +25,7 @@
     <packaging>pom</packaging>
     <version>4.1-SNAPSHOT</version>
     <name>Hazelcast Root</name>
-    <description>Hazelcast In-Memory DataGrid</description>
+    <description>Hazelcast</description>
     <url>http://www.hazelcast.com/</url>
 
     <modules>
@@ -52,10 +52,10 @@
         <!-- Not using 3.1 at the moment since it recompiles all classes every time -->
         <!-- https://issues.apache.org/jira/browse/MCOMPILER-205 -->
         <!--<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>-->
-        <maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
         <maven.jar.plugin.version>2.4</maven.jar.plugin.version>
         <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
-        <maven.javadoc.plugin.version>3.1.0</maven.javadoc.plugin.version>
+        <maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
         <maven.javadoc.plugin.excludePackageNames>
             *.impl:*.impl.*:*.internal:*.internal.*:*.operations:*.proxy:*.util:
             com.hazelcast.aws.security:*.handlermigration:*.client.connection.nio:
@@ -139,19 +139,6 @@
         <developerConnection>scm:git:git@github.com:hazelcast/hazelcast.git</developerConnection>
         <url>https://github.com/hazelcast/hazelcast/</url>
     </scm>
-    <developers>
-        <developer>
-            <id>oztalip</id>
-            <name>talip ozturk</name>
-            <email>talip@hazelcast.com</email>
-        </developer>
-        <developer>
-            <id>fuad</id>
-            <name>fuad malikov</name>
-            <email>fuad@hazelcast.com</email>
-        </developer>
-    </developers>
-
     <contributors>
         <contributor>
             <name>Hazelcast Community</name>
@@ -324,6 +311,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven.enforcer.plugin.version}</version>
@@ -873,6 +861,9 @@
                         </executions>
                         <configuration>
                             <failOnError>true</failOnError>
+                            <excludeFilterFile>${maven.multiModuleProjectDirectory}/spotbugs/spotbugs-exclude.xml</excludeFilterFile>
+                            <spotbugsXmlOutput>true</spotbugsXmlOutput>
+                            <xmlOutput>true</xmlOutput>
                         </configuration>
                     </plugin>
                 </plugins>
