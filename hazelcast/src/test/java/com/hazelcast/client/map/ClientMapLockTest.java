@@ -327,7 +327,7 @@ public class ClientMapLockTest {
                     putWhileLocked.countDown();
                     checkingKeySet.await();
                     map.unlock(key);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         }.start();
@@ -355,7 +355,7 @@ public class ClientMapLockTest {
                     putWhileLocked.countDown();
                     checkingKeySet.await();
                     map.unlock(key);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         }.start();
@@ -383,7 +383,7 @@ public class ClientMapLockTest {
                     removeWhileLocked.countDown();
                     checkingKey.await();
                     map.unlock(key);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         }.start();

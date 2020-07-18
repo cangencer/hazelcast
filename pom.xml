@@ -30,6 +30,7 @@
 
     <modules>
         <module>hazelcast</module>
+        <module>hazelcast-jet-core</module>
         <module>hazelcast-spring</module>
         <module>hazelcast-build-utils</module>
         <module>hazelcast-sql</module>
@@ -107,6 +108,7 @@
         <sonar.verbose>true</sonar.verbose>
 
         <checkstyle.version>8.29</checkstyle.version>
+        <checkstyle.headerLocation>${maven.multiModuleProjectDirectory}/checkstyle/ClassHeaderApache.txt</checkstyle.headerLocation>
 
         <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
@@ -327,6 +329,9 @@
                                     <!-- JDK 1.8+ is required for compilation. -->
                                     <version>[1.8.0,)</version>
                                 </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>3.5.2</version>
+                                </requireMavenVersion>
                             </rules>
                         </configuration>
                     </execution>
@@ -819,9 +824,9 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <configLocation>${main.basedir}/checkstyle/checkstyle.xml</configLocation>
-                            <suppressionsLocation>${main.basedir}/checkstyle/suppressions.xml</suppressionsLocation>
-                            <headerLocation>${main.basedir}/checkstyle/ClassHeader.txt</headerLocation>
+                            <configLocation>${maven.multiModuleProjectDirectory}/checkstyle/checkstyle.xml</configLocation>
+                            <suppressionsLocation>${maven.multiModuleProjectDirectory}/checkstyle/suppressions.xml</suppressionsLocation>
+                            <headerLocation>${checkstyle.headerLocation}</headerLocation>
                             <enableRSS>false</enableRSS>
                             <linkXRef>true</linkXRef>
                             <consoleOutput>true</consoleOutput>
@@ -829,7 +834,7 @@
                             <failOnViolation>true</failOnViolation>
                             <includeTestSourceDirectory>true</includeTestSourceDirectory>
                             <enableRulesSummary>true</enableRulesSummary>
-                            <propertyExpansion>main.basedir=${main.basedir}</propertyExpansion>
+                            <propertyExpansion>main.basedir=${maven.multiModuleProjectDirectory}</propertyExpansion>
                         </configuration>
                         <dependencies>
                             <dependency>

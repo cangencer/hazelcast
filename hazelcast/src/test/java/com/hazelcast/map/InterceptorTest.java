@@ -104,11 +104,11 @@ public class InterceptorTest extends HazelcastTestSupport {
 
         try {
             map.remove(1);
-        } catch (Exception ignore) {
+        } catch (Exception ignored) {
         }
         try {
             map.remove(2);
-        } catch (Exception ignore) {
+        } catch (Exception ignored) {
         }
 
         assertEquals(6, map.size());

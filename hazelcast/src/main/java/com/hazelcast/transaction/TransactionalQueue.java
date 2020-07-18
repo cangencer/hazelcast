@@ -20,6 +20,7 @@ import com.hazelcast.collection.BaseQueue;
 import com.hazelcast.collection.IQueue;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,50 +32,31 @@ import java.util.concurrent.TimeUnit;
  */
 public interface TransactionalQueue<E> extends TransactionalObject, BaseQueue<E> {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    boolean offer(@Nonnull E e);
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    boolean offer(@Nonnull E e, long timeout, @Nonnull TimeUnit unit) throws InterruptedException;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Nonnull
-    @Override
-    E take() throws InterruptedException;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    E poll();
-
-    /**
-     * {@inheritDoc}
-     */
+    @Nullable
     @Override
     E poll(long timeout, @Nonnull TimeUnit unit) throws InterruptedException;
 
     /**
-     * {@inheritDoc}
+     * Retrieves the head of this queue without removing it,
+     * or returns <code>null</code> if this queue is empty.
+     *
+     * @return the head of this queue, or <code>null</code> if this queue is empty
      */
+    @Nullable
     E peek();
 
     /**
-     * {@inheritDoc}
+     * Retrieves and the head of this queue without removing it, waiting up to the
+     * specified wait time if necessary for an element to become available.
+     *
+     * @param timeout how long to wait before giving up, in units of
+     *        <code>unit</code>
+     * @param unit a <code>TimeUnit</code> determining how to interpret the
+     *        <code>timeout</code> parameter
+     * @return the head of this queue, or <code>null</code> if the
+     *         specified waiting time elapses before an element is available
+     * @throws InterruptedException if interrupted while waiting
      */
+    @Nullable
     E peek(long timeout, TimeUnit unit) throws InterruptedException;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    int size();
 }

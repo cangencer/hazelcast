@@ -40,38 +40,29 @@ public final class MapDelegatingSet<V> extends AbstractSet<V> {
         this.contains = contains;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public int size() {
         return delegate.size();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean isEmpty() {
         return delegate.isEmpty();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     @SuppressWarnings("unchecked")
     public boolean contains(final Object o) {
         return contains.test(o);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
+    @Override
     public Iterator<V> iterator() {
         return iterator.get();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public void clear() {
         delegate.clear();
     }

@@ -278,6 +278,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      * if the write-behind queue has reached its per-node maximum
      * capacity.
      */
+    @Override
     void putAll(@Nonnull Map<? extends K, ? extends V> m);
 
     /**
@@ -298,6 +299,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @throws NullPointerException if the specified key is {@code null}
      */
+    @Override
     boolean containsKey(@Nonnull Object key);
 
     /**
@@ -305,6 +307,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @throws NullPointerException if the specified value is {@code null}
      */
+    @Override
     boolean containsValue(@Nonnull Object value);
 
     /**
@@ -336,6 +339,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @throws NullPointerException if the specified key is {@code null}
      */
+    @Override
     V get(@Nonnull Object key);
 
     /**
@@ -375,6 +379,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @throws NullPointerException if the specified key or value is null
      */
+    @Override
     V put(@Nonnull K key, @Nonnull V value);
 
     /**
@@ -416,6 +421,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      * @throws NullPointerException if the specified key is null
      * @see #delete(Object)
      */
+    @Override
     V remove(@Nonnull Object key);
 
     /**
@@ -447,6 +453,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @throws NullPointerException if the specified key or value is null
      */
+    @Override
     boolean remove(@Nonnull Object key, @Nonnull Object value);
 
     /**
@@ -884,7 +891,6 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *      CompletionStage<Void> future = map.putAllAsync(map);
      *      future.thenRunAsync(() -> System.out.println("All the entries are added"));
      * }</pre>
-     *  {@inheritDoc}
      * <p>
      * No atomicity guarantees are given. It could be that in case of failure
      * some of the key/value-pairs get written, while others are not.
@@ -920,6 +926,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @since 4.1
      */
+    @Nonnull
     CompletionStage<Void> putAllAsync(@Nonnull Map<? extends K, ? extends V> map);
 
     /**
@@ -1448,6 +1455,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      * @throws NullPointerException if the specified {@code key} or {@code value}
      *                              is {@code null}
      */
+    @Override
     V putIfAbsent(@Nonnull K key, @Nonnull V value);
 
     /**
@@ -1603,6 +1611,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @throws NullPointerException if any of the specified parameters are {@code null}
      */
+    @Override
     boolean replace(@Nonnull K key, @Nonnull V oldValue, @Nonnull V newValue);
 
     /**
@@ -1638,6 +1647,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @throws NullPointerException if the specified key or value is {@code null}
      */
+    @Override
     V replace(@Nonnull K key, @Nonnull V value);
 
     /**
@@ -3040,6 +3050,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @since 4.1
      */
+    @Override
     V computeIfPresent(@Nonnull K key, @Nonnull BiFunction<? super K, ? super V, ? extends V> remappingFunction);
 
     /**
@@ -3064,6 +3075,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @since 4.1
      */
+    @Override
     V computeIfAbsent(@Nonnull K key, @Nonnull Function<? super K, ? extends V> mappingFunction);
 
     /**
@@ -3087,6 +3099,7 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *     When this method is invoked using a hazelcast-client instance, the {@code action} is always executed locally
      * </p>
      */
+    @Override
     default void forEach(@Nonnull BiConsumer<? super K, ? super V> action) {
         ConcurrentMap.super.forEach(action);
     }
@@ -3113,5 +3126,6 @@ public interface IMap<K, V> extends ConcurrentMap<K, V>, BaseMap<K, V> {
      *
      * @since 4.1
      */
+    @Override
     V compute(K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction);
 }

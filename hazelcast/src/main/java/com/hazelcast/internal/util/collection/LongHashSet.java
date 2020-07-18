@@ -17,6 +17,7 @@
 
 package com.hazelcast.internal.util.collection;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
@@ -65,9 +66,7 @@ public final class LongHashSet implements Set<Long> {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean add(final Long value) {
         return add(value.longValue());
     }
@@ -98,15 +97,13 @@ public final class LongHashSet implements Set<Long> {
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean remove(final Object value) {
         return value instanceof Long && remove(((Long) value).longValue());
     }
 
     /**
-     * An long specialised version of {this#remove(Object)}.
+     * An long specialised version of {@link #remove(Object)}.
      *
      * @param value the value to remove
      * @return true if the value was present, false otherwise
@@ -151,15 +148,13 @@ public final class LongHashSet implements Set<Long> {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean contains(final Object value) {
         return value instanceof Long && contains(((Long) value).longValue());
     }
 
     /**
-     * {@inheritDoc}
+     *  An long specialised version of {@link #contains(Object)}.
      */
     public boolean contains(final long value) {
         int index = longHash(value, mask);
@@ -175,23 +170,17 @@ public final class LongHashSet implements Set<Long> {
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public int size() {
         return size;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean isEmpty() {
         return size() == 0;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public void clear() {
         final long[] values = this.values;
         final int length = values.length;
@@ -201,9 +190,7 @@ public final class LongHashSet implements Set<Long> {
         size = 0;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean addAll(final Collection<? extends Long> coll) {
         return addAllCapture(coll);
     }
@@ -218,9 +205,7 @@ public final class LongHashSet implements Set<Long> {
         return conjunction(coll, p);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean containsAll(final Collection<?> coll) {
         return containsAllCapture(coll);
     }
@@ -279,9 +264,7 @@ public final class LongHashSet implements Set<Long> {
         return difference;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean removeAll(final Collection<?> coll) {
         return removeAllCapture(coll);
     }
@@ -307,17 +290,13 @@ public final class LongHashSet implements Set<Long> {
         return acc;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
+    @Nonnull
     public LongIterator iterator() {
         iterator.reset();
         return iterator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void copy(final LongHashSet obj) {
         // NB: mask also implies the length is the same
         if (this.mask != obj.mask) {
@@ -332,9 +311,7 @@ public final class LongHashSet implements Set<Long> {
         this.size = obj.size;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public String toString() {
         final StringBuilder b = new StringBuilder(size() * 3 + 2);
         b.append('{');
@@ -349,9 +326,7 @@ public final class LongHashSet implements Set<Long> {
         return b.append('}').toString();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public Object[] toArray() {
         final long[] values = this.values;
         final Object[] array = new Object[this.size];
@@ -364,11 +339,9 @@ public final class LongHashSet implements Set<Long> {
         return array;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     @SuppressWarnings("unchecked")
-    public <T> T[] toArray(T[] into) {
+    public <T> T[] toArray(@Nonnull T[] into) {
         checkNotNull(into);
         final Class<?> aryType = into.getClass().getComponentType();
         if (!aryType.isAssignableFrom(Long.class)) {
@@ -388,9 +361,7 @@ public final class LongHashSet implements Set<Long> {
         return (T[]) ret;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean equals(final Object other) {
         if (other == this) {
             return true;
@@ -404,9 +375,7 @@ public final class LongHashSet implements Set<Long> {
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public int hashCode() {
         final LongIterator iterator = iterator();
         int total = 0;

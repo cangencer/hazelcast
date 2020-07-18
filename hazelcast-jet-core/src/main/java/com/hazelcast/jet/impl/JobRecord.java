@@ -117,6 +117,7 @@ public class JobRecord implements IdentifiedDataSerializable {
         ownedObservables = in.readObject();
     }
 
+
     @Override
     public String toString() {
         return "JobRecord{" +

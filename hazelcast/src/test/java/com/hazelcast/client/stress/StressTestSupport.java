@@ -197,7 +197,7 @@ public abstract class StressTestSupport extends HazelcastTestSupport {
             while (!stopTest) {
                 try {
                     Thread.sleep(TimeUnit.SECONDS.toMillis(KILL_DELAY_SECONDS));
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
                 }
 
                 int index = random.nextInt(CLUSTER_SIZE);

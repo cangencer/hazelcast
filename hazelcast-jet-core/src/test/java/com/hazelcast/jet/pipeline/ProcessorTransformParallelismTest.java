@@ -50,16 +50,16 @@ public class ProcessorTransformParallelismTest {
     private static final ServiceFactory<Void, Void> NC_SERVICE_FACTORY = SERVICE_FACTORY.toNonCooperative();
 
     @Parameter(value = 0)
-    public FunctionEx<StreamStage<Integer>, StreamStage<Integer>> cooperative_defaultLP;
+    public FunctionEx<StreamStage<Integer>, StreamStage<Integer>> cooperativeDefaultLP;
 
     @Parameter(value = 1)
-    public FunctionEx<StreamStage<Integer>, StreamStage<Integer>> cooperative_explicitLP;
+    public FunctionEx<StreamStage<Integer>, StreamStage<Integer>> cooperativeExplicitLP;
 
     @Parameter(value = 2)
-    public FunctionEx<StreamStage<Integer>, StreamStage<Integer>> nonCooperative_defaultLP;
+    public FunctionEx<StreamStage<Integer>, StreamStage<Integer>> nonCooperativeDefaultLP;
 
     @Parameter(value = 3)
-    public FunctionEx<StreamStage<Integer>, StreamStage<Integer>> nonCooperative_explicitLP;
+    public FunctionEx<StreamStage<Integer>, StreamStage<Integer>> nonCooperativeExplicitLP;
 
     @Parameter(value = 4)
     public String transformName;
@@ -201,7 +201,7 @@ public class ProcessorTransformParallelismTest {
     @Test
     public void when_cooperative_defaultLP_then_UsesProvidedLP() {
         // When
-        DAG dag = applyTransformAndGetDag(cooperative_defaultLP);
+        DAG dag = applyTransformAndGetDag(cooperativeDefaultLP);
 
         // Then
         Vertex tsVertex = dag.getVertex(transformName);
@@ -211,7 +211,7 @@ public class ProcessorTransformParallelismTest {
     @Test
     public void when_cooperative_explicitLP_then_UsesDefaultLP() {
         // When
-        DAG dag = applyTransformAndGetDag(cooperative_explicitLP);
+        DAG dag = applyTransformAndGetDag(cooperativeExplicitLP);
 
         // Then
         Vertex tsVertex = dag.getVertex(transformName);
@@ -221,7 +221,7 @@ public class ProcessorTransformParallelismTest {
     @Test
     public void when_nonCooperative_defaultLP_then_UsesProvidedLP() {
         // When
-        DAG dag = applyTransformAndGetDag(nonCooperative_defaultLP);
+        DAG dag = applyTransformAndGetDag(nonCooperativeDefaultLP);
 
         // Then
         Vertex tsVertex = dag.getVertex(transformName);
@@ -231,7 +231,7 @@ public class ProcessorTransformParallelismTest {
     @Test
     public void when_nonCooperative_explicitLP_then_UsesDefaultLP() {
         // When
-        DAG dag = applyTransformAndGetDag(nonCooperative_explicitLP);
+        DAG dag = applyTransformAndGetDag(nonCooperativeExplicitLP);
 
         // Then
         Vertex tsVertex = dag.getVertex(transformName);

@@ -77,7 +77,7 @@ public class AbstractJoinTest extends HazelcastTestSupport {
         try {
             Hazelcast.newHazelcastInstance(config2);
             fail();
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException ignored) {
 
         }
 

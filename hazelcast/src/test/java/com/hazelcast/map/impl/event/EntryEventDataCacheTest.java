@@ -67,7 +67,7 @@ public class EntryEventDataCacheTest {
         Address address = null;
         try {
             address = new Address("127.0.0.1", 5701);
-        } catch (UnknownHostException e) {
+        } catch (UnknownHostException ignored) {
         }
         ADDRESS = address;
     }

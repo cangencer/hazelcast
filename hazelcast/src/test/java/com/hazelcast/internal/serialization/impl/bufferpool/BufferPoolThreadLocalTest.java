@@ -93,7 +93,7 @@ public class BufferPoolThreadLocalTest extends HazelcastTestSupport {
                 try {
                     bufferPoolThreadLocal.get();
                     fail();
-                } catch (HazelcastInstanceNotActiveException ignore) {
+                } catch (HazelcastInstanceNotActiveException ignored) {
                 }
             }
         });

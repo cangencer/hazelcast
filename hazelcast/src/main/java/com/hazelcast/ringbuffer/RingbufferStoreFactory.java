@@ -26,5 +26,8 @@ import java.util.Properties;
 @FunctionalInterface
 public interface RingbufferStoreFactory<T> {
 
+    /**
+     * Returns a new {@link RingbufferStore} with the given name and properties
+     */
     RingbufferStore<T> newRingbufferStore(String name, Properties properties);
 }

@@ -84,7 +84,7 @@ import static org.junit.Assert.assertTrue;
 
 public class StreamStageTest extends PipelineStreamTestSupport {
 
-    private static BiFunction<String, Integer, String> ENRICHING_FORMAT_FN =
+    private static final BiFunction<String, Integer, String> ENRICHING_FORMAT_FN =
             (prefix, i) -> String.format("%s-%04d", prefix, i);
 
     @Rule

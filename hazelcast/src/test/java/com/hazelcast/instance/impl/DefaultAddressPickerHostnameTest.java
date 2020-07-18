@@ -136,7 +136,7 @@ public class DefaultAddressPickerHostnameTest {
         try {
             addressPicker.pickAddress();
             fail("Address selection should fail, since no matching network interface found.");
-        } catch (RuntimeException e) {
+        } catch (RuntimeException ignored) {
         }
     }
 
@@ -150,7 +150,7 @@ public class DefaultAddressPickerHostnameTest {
         try {
             addressPicker.pickAddress();
             fail("Address selection should fail, since no matching network interface found.");
-        } catch (RuntimeException e) {
+        } catch (RuntimeException ignored) {
         }
     }
 

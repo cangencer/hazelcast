@@ -36,5 +36,8 @@ import java.io.Serializable;
 @FunctionalInterface
 public interface IFunction<T, R> extends Serializable {
 
+    /**
+     * Applies the function to the input and return the output.
+     */
     R apply(T input);
 }

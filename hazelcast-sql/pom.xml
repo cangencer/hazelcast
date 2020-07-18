@@ -33,9 +33,6 @@
     </parent>
 
     <properties>
-        <!-- Needed for CheckStyle -->
-        <main.basedir>${project.parent.basedir}</main.basedir>
-
         <calcite.version>1.23.0</calcite.version>
         <guava.version>24.1.1-jre</guava.version>
     </properties>

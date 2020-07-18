@@ -20,6 +20,7 @@ import com.hazelcast.core.DistributedObject;
 import com.hazelcast.transaction.TransactionalQueue;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -75,6 +76,7 @@ public interface BaseQueue<E> extends DistributedObject {
      *
      * @return the head of this queue, or <code>null</code> if this queue is empty
      */
+    @Nullable
     E poll();
 
     /**
@@ -89,6 +91,7 @@ public interface BaseQueue<E> extends DistributedObject {
      *         specified waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
+    @Nullable
     E poll(long timeout, @Nonnull TimeUnit unit) throws InterruptedException;
 
     /**

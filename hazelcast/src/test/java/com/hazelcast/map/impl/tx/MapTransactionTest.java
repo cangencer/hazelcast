@@ -452,7 +452,7 @@ public class MapTransactionTest extends HazelcastTestSupport {
                     latch1.await(100, TimeUnit.SECONDS);
                     pass.set(!map.tryPut("var", "value1", 0, TimeUnit.SECONDS));
                     latch2.countDown();
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         };
@@ -464,7 +464,7 @@ public class MapTransactionTest extends HazelcastTestSupport {
                     assertEquals("value0", txMap.getForUpdate("var"));
                     latch1.countDown();
                     latch2.await(100, TimeUnit.SECONDS);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
                 return true;
             }
@@ -496,7 +496,7 @@ public class MapTransactionTest extends HazelcastTestSupport {
                     return true;
                 }
             });
-        } catch (TransactionException e) {
+        } catch (TransactionException ignored) {
         }
         assertTrue(map.isLocked("var"));
 
@@ -523,7 +523,7 @@ public class MapTransactionTest extends HazelcastTestSupport {
                     throw new TransactionException();
                 }
             });
-        } catch (TransactionException e) {
+        } catch (TransactionException ignored) {
         }
         assertFalse(map.isLocked("var"));
         assertTrue(map.isLocked("varLocked"));
@@ -546,7 +546,7 @@ public class MapTransactionTest extends HazelcastTestSupport {
                     assertEquals("value0", txMap.getForUpdate("var"));
                     assertEquals("value0", txMap.getForUpdate("var"));
                     assertEquals("value0", txMap.getForUpdate("var"));
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
                 return true;
             }
@@ -569,7 +569,7 @@ public class MapTransactionTest extends HazelcastTestSupport {
                     final TransactionalMap<String, String> txMap = context.getMap("default");
                     assertEquals("value0", txMap.put("var", "value1"));
                     assertEquals("value1", txMap.getForUpdate("var"));
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
                 return true;
             }
@@ -594,7 +594,7 @@ public class MapTransactionTest extends HazelcastTestSupport {
                     assertEquals("value0", txMap.put("var", "value1"));
                     assertEquals("value1", txMap.getForUpdate("var"));
                     assertEquals("value1", txMap.get("var"));
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
                 return true;
             }

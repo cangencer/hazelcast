@@ -131,7 +131,7 @@ public class AbstractInvocationFuture_GetTest extends AbstractInvocationFuture_A
         try {
             future.get();
             fail();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
         }
     }
 

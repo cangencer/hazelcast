@@ -200,7 +200,7 @@ public class AbstractInvocationFuture_GetWithTimeoutTest extends AbstractInvocat
         try {
             future.get();
             fail();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
         }
     }
 

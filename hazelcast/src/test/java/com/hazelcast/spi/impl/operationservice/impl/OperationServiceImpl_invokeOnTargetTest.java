@@ -103,7 +103,7 @@ public class OperationServiceImpl_invokeOnTargetTest extends HazelcastTestSuppor
         try {
             invocation.joinInternal();
             fail();
-        } catch (TargetNotMemberException e) {
+        } catch (TargetNotMemberException ignored) {
         }
     }
 

@@ -102,7 +102,7 @@ public class InvocationUtilTest extends HazelcastTestSupport {
             public void run() {
                 try {
                     TimeUnit.SECONDS.sleep(10);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
 
                 }
                 partition.resetMigrating();

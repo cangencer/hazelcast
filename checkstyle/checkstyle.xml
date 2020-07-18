@@ -116,11 +116,6 @@
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <!-- Only for methods on public APIs we agreed to have JavaDoc. -->
-        <!-- TODO: figure out how to do that -->
-        <!--<module name="JavadocMethod">-->
-        <!--<property name="scope" value="public"/>-->
-        <!--<property name="allowMissingParamTags" value="true"/>-->
-        <!--</module>-->
         <module name="JavadocType">
             <property name="scope" value="public"/>
         </module>
@@ -132,6 +127,7 @@
         </module>
         <module name="MissingJavadocMethod">
             <property name="scope" value="public"/>
+            <property name="tokens" value="METHOD_DEF,ANNOTATION_FIELD_DEF"/>
         </module>
         <module name="MissingJavadocType">
             <property name="scope" value="public"/>
@@ -143,7 +139,6 @@
             <property name="checkFirstSentence" value="false"/>
             <property name="checkHtml" value="false"/>
         </module>
-        <module name="TrailingComment"/>
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
@@ -174,7 +169,7 @@
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <module name="MethodLength">
             <property name="tokens" value="METHOD_DEF"/>
-            <property name="max" value="60"/>
+            <property name="max" value="200"/>
             <property name="countEmpty" value="false"/>
         </module>
         <module name="MethodLength">
@@ -196,7 +191,7 @@
             <property name="tokens" value="CTOR_DEF"/>
         </module>
         <module name="AnonInnerLength">
-            <property name="max" value="30"/>
+            <property name="max" value="50"/>
         </module>
         <module name="ExecutableStatementCount">
             <property name="max" value="20"/>
@@ -204,9 +199,6 @@
         </module>
         <module name="OuterTypeNumber">
             <property name="max" value="2"/>
-        </module>
-        <module name="MethodCount">
-            <property name="maxTotal" value="30"/>
         </module>
 
         <!-- Checks for whitespace                               -->
@@ -216,7 +208,6 @@
         <module name="MethodParamPad"/>
         <!-- module name="NoWhitespaceAfter"/ -->
         <!-- module name="NoWhitespaceBefore"/ -->
-        <module name="OperatorWrap"/>
         <module name="ParenPad"/>
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter"/>
@@ -263,7 +254,6 @@
             <property name="ignoredMethodNames" value="getInstance"/>
             <property name="tokens" value="PARAMETER_DEF, METHOD_DEF"/>
         </module>
-        <module name="InnerAssignment"/>
         <module name="ReturnCount">
             <property name="max" value="8"/>
             <property name="maxForVoid" value="8"/>
@@ -305,24 +295,6 @@
         <!-- Metrics -->
         <module name="BooleanExpressionComplexity">
             <property name="max" value="4"/>
-        </module>
-        <module name="ClassDataAbstractionCoupling">
-            <property name="max" value="15"/>
-        </module>
-        <module name="ClassFanOutComplexity">
-            <property name="max" value="40"/>
-        </module>
-        <module name="CyclomaticComplexity">
-            <property name="severity" value="error"/>
-            <property name="max" value="12"/>
-        </module>
-        <module name="NPathComplexity">
-            <!-- TODO Agree on the value
-                 Checkstyle 7.7 improved the NPath algorithm further that leads to higher NPath counts.
-                 7.6 passes with max 50, 7.7 needs it to be set to at least 216
-                 the default threshold is 200
-            -->
-            <property name="max" value="250"/>
         </module>
 
         <!-- Miscellaneous other checks.                   -->

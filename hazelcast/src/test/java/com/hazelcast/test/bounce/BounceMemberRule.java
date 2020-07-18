@@ -432,7 +432,7 @@ public class BounceMemberRule implements TestRule {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     throw rethrow(e.getCause());
-                } catch (TimeoutException e) {
+                } catch (TimeoutException ignored) {
                 }
             }
         }

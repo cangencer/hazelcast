@@ -782,7 +782,7 @@ public class EntryProcessorOffloadableTest extends HazelcastTestSupport {
         public Object process(final Map.Entry<String, SimpleValue> entry) {
             try {
                 mayStart.await();
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
             }
             try {
                 entry.setValue(entry.getValue());

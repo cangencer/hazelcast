@@ -190,31 +190,31 @@ public class ReliableTopicConfigTest {
         try {
             readOnly.setExecutor(null);
             fail();
-        } catch (UnsupportedOperationException e) {
+        } catch (UnsupportedOperationException ignored) {
         }
 
         try {
             readOnly.setReadBatchSize(3);
             fail();
-        } catch (UnsupportedOperationException e) {
+        } catch (UnsupportedOperationException ignored) {
         }
 
         try {
             readOnly.setStatisticsEnabled(true);
             fail();
-        } catch (UnsupportedOperationException e) {
+        } catch (UnsupportedOperationException ignored) {
         }
 
         try {
             readOnly.addMessageListenerConfig(new ListenerConfig("foobar"));
             fail();
-        } catch (UnsupportedOperationException e) {
+        } catch (UnsupportedOperationException ignored) {
         }
 
         try {
             readOnly.setTopicOverloadPolicy(null);
             fail();
-        } catch (UnsupportedOperationException e) {
+        } catch (UnsupportedOperationException ignored) {
         }
     }
 

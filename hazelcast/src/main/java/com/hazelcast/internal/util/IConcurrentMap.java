@@ -35,11 +35,10 @@ import java.util.function.Function;
  */
 public interface IConcurrentMap<K, V> extends java.util.concurrent.ConcurrentMap<K, V> {
     /**
-     * {@inheritDoc}
+     * @throws UnsupportedOperationException
+     * @throws ClassCastException
+     * @throws NullPointerException
      *
-     * @throws UnsupportedOperationException {@inheritDoc}
-     * @throws ClassCastException            {@inheritDoc}
-     * @throws NullPointerException          {@inheritDoc}
      * @implSpec The default implementation is equivalent to the following steps for this
      * {@code map}, then returning the current value or {@code null} if now
      * absent:
@@ -64,11 +63,10 @@ public interface IConcurrentMap<K, V> extends java.util.concurrent.ConcurrentMap
     V applyIfAbsent(K key, Function<? super K, ? extends V> mappingFunction);
 
     /**
-     * {@inheritDoc}
+     * @throws UnsupportedOperationException
+     * @throws ClassCastException
+     * @throws NullPointerException
      *
-     * @throws UnsupportedOperationException {@inheritDoc}
-     * @throws ClassCastException            {@inheritDoc}
-     * @throws NullPointerException          {@inheritDoc}
      * @implSpec The default implementation is equivalent to performing the following
      * steps for this {@code map}, then returning the current value or
      * {@code null} if now absent. :
@@ -97,8 +95,6 @@ public interface IConcurrentMap<K, V> extends java.util.concurrent.ConcurrentMap
 
 
     /**
-     * {@inheritDoc}
-     *
      * @implSpec
      * The default implementation is equivalent to performing the following
      * steps for this {@code map}, then returning the current value or
@@ -129,10 +125,9 @@ public interface IConcurrentMap<K, V> extends java.util.concurrent.ConcurrentMap
      * absent. Implementations which support null values <strong>must</strong>
      * override this default implementation.
      *
-     * @throws UnsupportedOperationException {@inheritDoc}
-     * @throws ClassCastException {@inheritDoc}
-     * @throws NullPointerException {@inheritDoc}
-     * @since 1.8
+     * @throws UnsupportedOperationException
+     * @throws ClassCastException
+     * @throws NullPointerException
      */
     V apply(K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction);
 }

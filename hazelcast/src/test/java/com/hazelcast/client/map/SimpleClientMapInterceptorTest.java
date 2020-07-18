@@ -91,7 +91,7 @@ public class SimpleClientMapInterceptorTest extends HazelcastTestSupport {
         try {
             map.remove(2);
             fail();
-        } catch (Exception ignore) {
+        } catch (Exception ignored) {
 
         }
 

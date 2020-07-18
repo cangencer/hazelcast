@@ -47,6 +47,9 @@ public class EventLostEvent implements IMapEvent {
         this.partitionId = partitionId;
     }
 
+    /**
+     * Returns the partition id that the event relates to
+     */
     public int getPartitionId() {
         return partitionId;
     }

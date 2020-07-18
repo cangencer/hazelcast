@@ -19,6 +19,7 @@ package com.hazelcast.collection;
 import com.hazelcast.transaction.TransactionalQueue;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -48,19 +49,16 @@ public interface IQueue<E> extends BlockingQueue<E>, BaseQueue<E>, ICollection<E
      *
      */
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
+    @Nullable
     E poll();
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
+    @Nullable
     E poll(long timeout, @Nonnull TimeUnit unit) throws InterruptedException;
 
-    /**
-     * {@inheritDoc}
-     */
+
+    @Override
     @Nonnull
     E take() throws InterruptedException;
 

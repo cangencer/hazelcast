@@ -142,14 +142,14 @@ public class ConfigCheckTest {
         try {
             c1.isCompatible(c2);
             fail();
-        } catch (ConfigMismatchException e) {
+        } catch (ConfigMismatchException ignored) {
 
         }
 
         try {
             c2.isCompatible(c1);
             fail();
-        } catch (ConfigMismatchException e) {
+        } catch (ConfigMismatchException ignored) {
 
         }
 
